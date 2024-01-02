@@ -48,8 +48,10 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnConfirmar = new System.Windows.Forms.Button();
+            this.btnExcluir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnConfirmarEdicao = new System.Windows.Forms.Button();
+            this.btnPesquisar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -191,6 +193,7 @@
             this.btnEditar.TabIndex = 16;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnRemover
             // 
@@ -200,6 +203,7 @@
             this.btnRemover.TabIndex = 17;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
+            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
             // 
             // dataGridView1
             // 
@@ -222,15 +226,16 @@
             this.Column2.HeaderText = "Column2";
             this.Column2.Name = "Column2";
             // 
-            // btnConfirmar
+            // btnExcluir
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(515, 169);
-            this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(75, 23);
-            this.btnConfirmar.TabIndex = 19;
-            this.btnConfirmar.Text = "Confirmar";
-            this.btnConfirmar.UseVisualStyleBackColor = true;
-            this.btnConfirmar.Visible = false;
+            this.btnExcluir.Location = new System.Drawing.Point(515, 169);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
+            this.btnExcluir.TabIndex = 19;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Visible = false;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // btnCancelar
             // 
@@ -241,14 +246,37 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Visible = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnConfirmarEdicao
+            // 
+            this.btnConfirmarEdicao.Location = new System.Drawing.Point(515, 169);
+            this.btnConfirmarEdicao.Name = "btnConfirmarEdicao";
+            this.btnConfirmarEdicao.Size = new System.Drawing.Size(75, 23);
+            this.btnConfirmarEdicao.TabIndex = 21;
+            this.btnConfirmarEdicao.Text = "Confirmar";
+            this.btnConfirmarEdicao.UseVisualStyleBackColor = true;
+            this.btnConfirmarEdicao.Visible = false;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.Location = new System.Drawing.Point(515, 169);
+            this.btnPesquisar.Name = "btnPesquisar";
+            this.btnPesquisar.Size = new System.Drawing.Size(75, 23);
+            this.btnPesquisar.TabIndex = 22;
+            this.btnPesquisar.Text = "Editar";
+            this.btnPesquisar.UseVisualStyleBackColor = true;
+            this.btnPesquisar.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 450);
+            this.Controls.Add(this.btnPesquisar);
+            this.Controls.Add(this.btnConfirmarEdicao);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnConfirmar);
+            this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnRemover);
             this.Controls.Add(this.btnEditar);
@@ -298,8 +326,10 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.Button btnConfirmar;
+        private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnConfirmarEdicao;
+        private System.Windows.Forms.Button btnPesquisar;
     }
 }
 

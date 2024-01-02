@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\GitHub\CRUD_mysql.cs" />
+    <Compile Include="BDInfo.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
