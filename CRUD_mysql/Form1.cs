@@ -263,7 +263,6 @@ namespace CRUD_mysql
 
 
 
-
         private void activateInputs()
         {
             inptID.ReadOnly = true;
