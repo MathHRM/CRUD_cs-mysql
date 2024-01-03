@@ -1,12 +1,4 @@
-﻿using MySqlX.XDevAPI.Relational;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CRUD_mysql
+﻿namespace CRUD_mysql
 {
     internal static class BDInfo
     {
