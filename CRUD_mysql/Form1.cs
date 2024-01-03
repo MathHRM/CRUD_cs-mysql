@@ -18,6 +18,15 @@ namespace CRUD_mysql
         {
             InitializeComponent();
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            var cadastro = new Cadastro();
+            cadastro.TestaConexao();
+            ShowAll();
+            activateInputs();
+        }
+
+
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
@@ -43,22 +52,217 @@ namespace CRUD_mysql
 
             Cadastro adicionar = new Cadastro();
             bool adicionado = adicionar.Adicionar(nome, email, telefone, cidade, bairro, estado, cpf);
-            if(!adicionado)
+
+            if (!adicionado)
             {
                 MessageBox.Show("Funcionario não adicionado, verifique os dados ou tente novamente");
                 return;
             }
+
             Limpar();
             ShowAll();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+
+
+        private void btnRemover_Click(object sender, EventArgs e)
         {
-            var cadastro = new Cadastro();
-            cadastro.TestaConexao();
-            ShowAll();
-            activateInputs();
+            desactivateButtons();
+            desactivateInputs();
+
+            btnCancelar.Visible = true;
+            btnConfirmarPesquisa.Visible = true;
         }
+
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (inptID.Equals(""))
+            {
+                MessageBox.Show("Digite um ID");
+                return;
+            }
+
+            int id = int.Parse(inptID.Text);
+
+            Cadastro excluir = new Cadastro();
+            excluir.Remover(id);
+            Limpar();
+
+            inptID.Clear();
+            activateButtons();
+            activateInputs();
+            btnConfirmarExcluir.Visible = false;
+            btnCancelar.Visible = false;
+            ShowAll();
+        }
+
+
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            // caso clicado antes de uma pesquisa irá direcioanr a uma
+            if (inptID.Text.Equals(""))
+            {
+                desactivateButtons();
+                desactivateInputs();
+
+                btnCancelar.Visible = true;
+                btnConfirmarPesquisa.Visible = true;
+                return;
+            }
+
+            // caso clicado após uma pesquisa irá editar o resultado
+            desactivateButtons();
+            activateInputs();
+
+            btnCancelar.Visible = true;
+            btnConfirmarExcluir.Visible = false;
+            btnConfirmarEdicao.Visible = true;
+        }
+
+        private void btnConfirmarEdicao_Click(object sender, EventArgs e)
+        {
+            string nome = inptName.Text,
+                email = inptEmail.Text,
+                telefone = inptTelefone.Text,
+                cidade = inptCidade.Text,
+                bairro = inptBairro.Text,
+                estado = inptEstado.Text,
+                cpf = inptCpf.Text;
+
+
+            int id = int.Parse(inptID.Text);
+
+            if (nome.Equals("") ||
+                email.Equals("") ||
+                telefone.Equals("") ||
+                bairro.Equals("") ||
+                estado.Equals("") ||
+                cidade.Equals("") ||
+                cpf.Equals(""))
+            {
+                MessageBox.Show("Preencha todos os campos");
+                return;
+            }
+
+            Cadastro update = new Cadastro();
+            update.Update(nome, email, telefone, cidade, bairro, estado, cpf, id);
+
+
+            btnConfirmarEdicao.Visible = false;
+            btnCancelar.Visible = false;
+
+            activateButtons();
+            Limpar();
+            ShowAll();
+        }
+
+
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            desactivateButtons();
+            desactivateInputs();
+
+            btnCancelar.Visible = true;
+            btnConfirmarPesquisa.Visible = true;
+        }
+
+        private void btnConfirmarPesquisa_Click(object sender, EventArgs e)
+        {
+            pesquisar();
+        }
+
+        private void pesquisar()
+        {
+            int id = int.Parse(inptID.Text);
+            Cadastro pesquisar = new Cadastro();
+            var funcionario = pesquisar.Pesquisar(id);
+
+            if (funcionario == null)
+            {
+                MessageBox.Show("Funcionario não encontrado: não existe");
+                return;
+            }
+
+            if (!funcionario.HasRows)
+            {
+                MessageBox.Show("Funcionario não encontrado: sem dados");
+                return;
+            }
+
+            funcionario.Read();
+
+            inptName.Text = funcionario["nome"].ToString();
+            inptEmail.Text = funcionario["email"].ToString();
+            inptTelefone.Text = funcionario["telefone"].ToString();
+            inptCidade.Text = funcionario["cidade"].ToString();
+            inptBairro.Text = funcionario["bairro"].ToString();
+            inptEstado.Text = funcionario["estado"].ToString();
+
+            desactivateInputs();
+            desactivateButtons();
+
+            btnCancelar.Visible = true;
+            btnEditar.Visible = true;
+            btnConfirmarExcluir.Visible = true;
+            btnConfirmarPesquisa.Visible = false;
+
+            inptID.ReadOnly = true;
+            inptID.BackColor = Color.LightGray;
+        }
+
+
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            activateButtons();
+            activateInputs();
+            Limpar();
+
+            btnConfirmarEdicao.Visible = false;
+            btnConfirmarPesquisa.Visible = false;
+            btnConfirmarExcluir.Visible = false;
+            btnCancelar.Visible = false;
+        }
+
+
+
+        private void ShowAll()
+        {
+            Cadastro pesquisar = new Cadastro();
+            var tabela = pesquisar.PesquisarTodos();
+
+            DataTable dt = new DataTable();
+            dt.Load(tabela);
+
+            dataGridTable.DataSource = dt;
+            dataGridTable.AutoResizeColumns();
+        }
+
+
+
+        private void dataGridTable_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            int contLinhas = dgv.Rows.Count;
+            string idSelecionado;
+
+            if (contLinhas > 0)
+            {
+                bool rowSelecionado = dataGridTable.SelectedRows.Count > 0;
+                if (rowSelecionado)
+                {
+                    idSelecionado = dataGridTable.Rows[dataGridTable.SelectedRows[0].Index].Cells[0].Value.ToString();
+                    inptID.Text = idSelecionado;
+                    pesquisar();
+                }
+            }
+        }
+
+
+
 
         private void activateInputs()
         {
@@ -100,8 +304,6 @@ namespace CRUD_mysql
             inptCpf.ReadOnly = true;
             inptCpf.BackColor = Color.LightGray;
         }
-
-
         private void activateButtons()
         {
             btnAdicionar.Visible = true;
@@ -117,7 +319,6 @@ namespace CRUD_mysql
             btnRemover.Visible = false;
             btnPesquisar.Visible = false;
         }
-
         private void Limpar()
         {
             inptName.Clear();
@@ -128,179 +329,6 @@ namespace CRUD_mysql
             inptEstado.Clear();
             inptID.Clear();
             inptCpf.Clear();
-        }
-
-        private void btnRemover_Click(object sender, EventArgs e)
-        {
-            desactivateButtons();
-            desactivateInputs();
-            btnCancelar.Visible = true;
-            btnConfirmarPesquisa.Visible = true;
-        }
-
-        private void btnExcluir_Click(object sender, EventArgs e)
-        {
-            if (inptID.Equals(""))
-            {
-                MessageBox.Show("Digite um ID");
-                return;
-            }
-
-            int id = int.Parse(inptID.Text);
-
-            Cadastro excluir = new Cadastro();
-            excluir.Remover(id);
-            Limpar();
-
-            inptID.Clear();
-            activateButtons();
-            activateInputs();
-            btnConfirmarExcluir.Visible = false;
-            btnCancelar.Visible = false;
-            ShowAll();
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            activateButtons();
-            activateInputs();
-            btnConfirmarEdicao.Visible = false;
-            btnConfirmarPesquisa.Visible = false;
-            btnConfirmarExcluir.Visible = false;
-            btnCancelar.Visible = false;
-            Limpar();
-        }
-
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-            if (inptID.Text.Equals(""))
-            {
-                desactivateButtons();
-                desactivateInputs();
-                btnCancelar.Visible = true;
-                btnConfirmarPesquisa.Visible = true;
-                return;
-            }
-
-            desactivateButtons();
-            activateInputs();
-            btnCancelar.Visible = true;
-            btnConfirmarExcluir.Visible = false;
-            btnConfirmarEdicao.Visible = true;
-        }
-
-        private void btnPesquisar_Click(object sender, EventArgs e)
-        {
-            desactivateButtons();
-            desactivateInputs();
-            btnCancelar.Visible = true;
-            btnConfirmarPesquisa.Visible = true;
-        }
-
-        private void btnConfirmarEdicao_Click(object sender, EventArgs e)
-        {
-            string nome = inptName.Text,
-                email = inptEmail.Text,
-                telefone = inptTelefone.Text,
-                cidade = inptCidade.Text,
-                bairro = inptBairro.Text,
-                estado = inptEstado.Text,
-                cpf = inptCpf.Text;
-                
-
-            int id = int.Parse(inptID.Text);
-
-            if (nome.Equals("") ||
-                email.Equals("") ||
-                telefone.Equals("") ||
-                bairro.Equals("") ||
-                estado.Equals("") ||
-                cidade.Equals("") ||
-                cpf.Equals(""))
-            {
-                MessageBox.Show("Preencha todos os campos");
-                return;
-            }
-
-            Cadastro update = new Cadastro();
-            update.Update(nome, email, telefone, cidade, bairro, estado, cpf, id);
-            activateButtons();
-            btnConfirmarEdicao.Visible = false;
-            btnCancelar.Visible = false;
-            Limpar();
-            ShowAll();
-        }
-
-        private void btnConfirmarPesquisa_Click(object sender, EventArgs e)
-        {
-            pesquisar();
-        }
-        
-        private void pesquisar()
-        {
-            int id = int.Parse(inptID.Text);
-            Cadastro pesquisar = new Cadastro();
-            var funcionario = pesquisar.Pesquisar(id);
-
-            if (funcionario == null)
-            {
-                MessageBox.Show("Funcionario não encontrado: não existe");
-                return;
-            }
-
-            if (!funcionario.HasRows)
-            {
-                MessageBox.Show("Funcionario não encontrado: sem dados");
-                return;
-            }
-
-            funcionario.Read();
-
-            inptName.Text = funcionario["nome"].ToString();
-            inptEmail.Text = funcionario["email"].ToString();
-            inptTelefone.Text = funcionario["telefone"].ToString();
-            inptCidade.Text = funcionario["cidade"].ToString();
-            inptBairro.Text = funcionario["bairro"].ToString();
-            inptEstado.Text = funcionario["estado"].ToString();
-
-            desactivateInputs();
-            desactivateButtons();
-            btnCancelar.Visible = true;
-            btnEditar.Visible = true;
-            btnConfirmarExcluir.Visible = true;
-            inptID.ReadOnly = true;
-            inptID.BackColor = Color.LightGray;
-            btnConfirmarPesquisa.Visible = false;
-        }
-
-        private void ShowAll()
-        {
-            Cadastro pesquisar = new Cadastro();
-            var tabela = pesquisar.ReadAll();
-
-            DataTable dt = new DataTable();
-            dt.Load(tabela);
-
-            dataGridTable.DataSource = dt;
-            dataGridTable.AutoResizeColumns();
-        }
-
-        private void dataGridTable_SelectionChanged(object sender, EventArgs e)
-        {
-            DataGridView dgv = (DataGridView)sender;
-            int contLinhas = dgv.Rows.Count;
-            string idSelecionado;
-
-            if (contLinhas > 0)
-            {
-                bool rowSelecionado = dataGridTable.SelectedRows.Count > 0;
-                if (rowSelecionado)
-                {
-                    idSelecionado = dataGridTable.Rows[dataGridTable.SelectedRows[0].Index].Cells[0].Value.ToString();
-                    inptID.Text = idSelecionado;
-                    pesquisar();
-                }
-            }
         }
     }
 }
