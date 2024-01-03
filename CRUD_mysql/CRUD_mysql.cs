@@ -10,6 +10,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace CRUD_mysql
 {
+    // 
+    //teste sincronia
+    //
     internal class Cadastro
     {
         private MySqlConnection _conxSql = new MySqlConnection(BDInfo.Server);
