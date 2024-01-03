@@ -147,8 +147,13 @@ namespace CRUD_mysql
             }
 
             Cadastro update = new Cadastro();
-            update.Update(nome, email, telefone, cidade, bairro, estado, cpf, id);
+            bool atualizado = update.Update(nome, email, telefone, cidade, bairro, estado, cpf, id);
 
+            if (!atualizado)
+            {
+                MessageBox.Show("Funcionario não atualizado, verifique os dados ou tente novamente");
+                return;
+            }
 
             btnConfirmarEdicao.Visible = false;
             btnCancelar.Visible = false;
@@ -200,6 +205,7 @@ namespace CRUD_mysql
             inptCidade.Text = funcionario["cidade"].ToString();
             inptBairro.Text = funcionario["bairro"].ToString();
             inptEstado.Text = funcionario["estado"].ToString();
+            inptCpf.Text = funcionario["cpf"].ToString();
 
             desactivateInputs();
             desactivateButtons();

@@ -37,7 +37,7 @@ namespace CRUD_mysql
 
 
 
-        public void Update(string nome, string email, string telefone, string cidade, string bairro, string estado, string cpf, int id)
+        public bool Update(string nome, string email, string telefone, string cidade, string bairro, string estado, string cpf, int id)
         {
             try
             {
@@ -49,10 +49,12 @@ namespace CRUD_mysql
 
                 comando.ExecuteNonQuery();
                 _conxSql.Close();
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Erro ao adicionar ao BD\n" + ex.Message);
+                return false;
             }
         }
 
