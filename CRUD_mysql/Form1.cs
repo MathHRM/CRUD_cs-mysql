@@ -2,12 +2,13 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace CRUD_mysql
 {
-    public partial class Form1 : Form
+    public partial class selectEstado : Form
     {
-        public Form1()
+        public selectEstado()
         {
             InitializeComponent();
         }
@@ -23,7 +24,7 @@ namespace CRUD_mysql
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            string nome = inptName.Text,
+            string nome = inptNome.Text,
                 email = inptEmail.Text,
                 telefone = inptTelefone.Text,
                 cidade = inptCidade.Text,
@@ -31,15 +32,8 @@ namespace CRUD_mysql
                 estado = inptEstado.Text,
                 cpf = inptCpf.Text; ;
 
-            if (nome.Equals("") ||
-                email.Equals("") ||
-                telefone.Equals("") ||
-                bairro.Equals("") ||
-                estado.Equals("") ||
-                cpf.Equals("") ||
-                cidade.Equals(""))
+            if (!inputsPreenchidos())
             {
-                MessageBox.Show("Preencha todos os campos");
                 return;
             }
 
@@ -62,6 +56,7 @@ namespace CRUD_mysql
         {
             desactivateButtons();
             desactivateInputs();
+            Limpar();
 
             btnCancelar.Visible = true;
             btnConfirmarPesquisa.Visible = true;
@@ -80,14 +75,14 @@ namespace CRUD_mysql
 
             Cadastro excluir = new Cadastro();
             excluir.Remover(id);
-            Limpar();
+            ShowAll();
 
             inptID.Clear();
             activateButtons();
             activateInputs();
+            Limpar();
             btnConfirmarExcluir.Visible = false;
             btnCancelar.Visible = false;
-            ShowAll();
         }
 
 
@@ -99,6 +94,7 @@ namespace CRUD_mysql
             {
                 desactivateButtons();
                 desactivateInputs();
+                Limpar();
 
                 btnCancelar.Visible = true;
                 btnConfirmarPesquisa.Visible = true;
@@ -116,7 +112,7 @@ namespace CRUD_mysql
 
         private void btnConfirmarEdicao_Click(object sender, EventArgs e)
         {
-            string nome = inptName.Text,
+            string nome = inptNome.Text,
                 email = inptEmail.Text,
                 telefone = inptTelefone.Text,
                 cidade = inptCidade.Text,
@@ -127,15 +123,8 @@ namespace CRUD_mysql
 
             int id = int.Parse(inptID.Text);
 
-            if (nome.Equals("") ||
-                email.Equals("") ||
-                telefone.Equals("") ||
-                bairro.Equals("") ||
-                estado.Equals("") ||
-                cidade.Equals("") ||
-                cpf.Equals(""))
+            if (!inputsPreenchidos())
             {
-                MessageBox.Show("Preencha todos os campos");
                 return;
             }
 
@@ -162,6 +151,7 @@ namespace CRUD_mysql
         {
             desactivateButtons();
             desactivateInputs();
+            Limpar();
 
             btnCancelar.Visible = true;
             btnConfirmarPesquisa.Visible = true;
@@ -192,7 +182,7 @@ namespace CRUD_mysql
 
             funcionario.Read();
 
-            inptName.Text = funcionario["nome"].ToString();
+            inptNome.Text = funcionario["nome"].ToString();
             inptEmail.Text = funcionario["email"].ToString();
             inptTelefone.Text = funcionario["telefone"].ToString();
             inptCidade.Text = funcionario["cidade"].ToString();
@@ -261,14 +251,30 @@ namespace CRUD_mysql
         }
 
 
+        private bool inputsPreenchidos()
+        {
+            if (!inptNome.Text.Equals("") &&
+                !inptEmail.Text.Equals("") &&
+                !inptTelefone.Text.Equals("") &&
+                !inptCidade.Text.Equals("") &&
+                !inptBairro.Text.Equals("") &&
+                !inptEstado.Text.Equals("") &&
+                inptCpf.MaskCompleted)
+            {
+                return true;
+            }
+
+            MessageBox.Show("Preencha todos os campos");
+            return false;
+        }
 
         private void activateInputs()
         {
             inptID.ReadOnly = true;
             inptID.BackColor = Color.LightGray;
 
-            inptName.ReadOnly = false;
-            inptName.BackColor = Color.White;
+            inptNome.ReadOnly = false;
+            inptNome.BackColor = Color.White;
             inptEmail.ReadOnly = false;
             inptEmail.BackColor = Color.White;
             inptTelefone.ReadOnly = false;
@@ -277,7 +283,7 @@ namespace CRUD_mysql
             inptCidade.BackColor = Color.White;
             inptBairro.ReadOnly = false;
             inptBairro.BackColor = Color.White;
-            inptEstado.ReadOnly = false;
+            inptEstado.Enabled = true;
             inptEstado.BackColor = Color.White;
             inptCpf.ReadOnly = false;
             inptCpf.BackColor = Color.White;
@@ -287,8 +293,8 @@ namespace CRUD_mysql
             inptID.ReadOnly = false;
             inptID.BackColor = Color.White;
 
-            inptName.ReadOnly = true;
-            inptName.BackColor = Color.LightGray;
+            inptNome.ReadOnly = true;
+            inptNome.BackColor = Color.LightGray;
             inptEmail.ReadOnly = true;
             inptEmail.BackColor = Color.LightGray;
             inptTelefone.ReadOnly = true;
@@ -297,7 +303,7 @@ namespace CRUD_mysql
             inptCidade.BackColor = Color.LightGray;
             inptBairro.ReadOnly = true;
             inptBairro.BackColor = Color.LightGray;
-            inptEstado.ReadOnly = true;
+            inptEstado.Enabled = false;
             inptEstado.BackColor = Color.LightGray;
             inptCpf.ReadOnly = true;
             inptCpf.BackColor = Color.LightGray;
@@ -319,12 +325,12 @@ namespace CRUD_mysql
         }
         private void Limpar()
         {
-            inptName.Clear();
+            inptNome.Clear();
             inptEmail.Clear();
             inptTelefone.Clear();
             inptCidade.Clear();
             inptBairro.Clear();
-            inptEstado.Clear();
+            inptEstado.SelectedIndex = -1;
             inptID.Clear();
             inptCpf.Clear();
         }

@@ -1,6 +1,6 @@
 ﻿namespace CRUD_mysql
 {
-    partial class Form1
+    partial class selectEstado
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             this.btnAdicionar = new System.Windows.Forms.Button();
-            this.inptName = new System.Windows.Forms.TextBox();
+            this.inptNome = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.inptEmail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.inptEstado = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.inptBairro = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -53,6 +52,7 @@
             this.btnConfirmarPesquisa = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.inptCpf = new System.Windows.Forms.MaskedTextBox();
+            this.inptEstado = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,12 +66,12 @@
             this.btnAdicionar.UseVisualStyleBackColor = true;
             this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
             // 
-            // inptName
+            // inptNome
             // 
-            this.inptName.Location = new System.Drawing.Point(80, 17);
-            this.inptName.Name = "inptName";
-            this.inptName.Size = new System.Drawing.Size(543, 20);
-            this.inptName.TabIndex = 1;
+            this.inptNome.Location = new System.Drawing.Point(80, 17);
+            this.inptNome.Name = "inptNome";
+            this.inptNome.Size = new System.Drawing.Size(543, 20);
+            this.inptNome.TabIndex = 1;
             // 
             // label1
             // 
@@ -104,18 +104,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(477, 125);
+            this.label3.Location = new System.Drawing.Point(494, 124);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 18);
             this.label3.TabIndex = 8;
             this.label3.Text = "Estado";
-            // 
-            // inptEstado
-            // 
-            this.inptEstado.Location = new System.Drawing.Point(541, 123);
-            this.inptEstado.Name = "inptEstado";
-            this.inptEstado.Size = new System.Drawing.Size(82, 20);
-            this.inptEstado.TabIndex = 7;
             // 
             // label4
             // 
@@ -289,12 +282,30 @@
             this.inptCpf.Size = new System.Drawing.Size(82, 20);
             this.inptCpf.TabIndex = 25;
             // 
-            // Form1
+            // inptEstado
+            // 
+            this.inptEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.inptEstado.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.inptEstado.FormattingEnabled = true;
+            this.inptEstado.Items.AddRange(new object[] {
+            "MG",
+            "SP",
+            "AL",
+            "MT",
+            "SC",
+            "RJ"});
+            this.inptEstado.Location = new System.Drawing.Point(558, 121);
+            this.inptEstado.Name = "inptEstado";
+            this.inptEstado.Size = new System.Drawing.Size(65, 21);
+            this.inptEstado.TabIndex = 26;
+            // 
+            // selectEstado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(636, 450);
+            this.Controls.Add(this.inptEstado);
             this.Controls.Add(this.inptCpf);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnConfirmarPesquisa);
@@ -312,15 +323,14 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.inptTelefone);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.inptEstado);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.inptBairro);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.inptEmail);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.inptName);
+            this.Controls.Add(this.inptNome);
             this.Controls.Add(this.btnAdicionar);
-            this.Name = "Form1";
+            this.Name = "selectEstado";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -333,12 +343,11 @@
         #endregion
 
         private System.Windows.Forms.Button btnAdicionar;
-        private System.Windows.Forms.TextBox inptName;
+        private System.Windows.Forms.TextBox inptNome;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox inptEmail;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox inptEstado;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox inptBairro;
         private System.Windows.Forms.Label label5;
@@ -357,6 +366,7 @@
         private System.Windows.Forms.Button btnConfirmarPesquisa;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MaskedTextBox inptCpf;
+        private System.Windows.Forms.ComboBox inptEstado;
     }
 }
 
