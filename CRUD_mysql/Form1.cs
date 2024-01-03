@@ -42,7 +42,12 @@ namespace CRUD_mysql
             }
 
             Cadastro adicionar = new Cadastro();
-            adicionar.Adicionar(nome, email, telefone, cidade, bairro, estado, cpf);
+            bool adicionado = adicionar.Adicionar(nome, email, telefone, cidade, bairro, estado, cpf);
+            if(!adicionado)
+            {
+                MessageBox.Show("Funcionario não adicionado, verifique os dados ou tente novamente");
+                return;
+            }
             Limpar();
             ShowAll();
         }
