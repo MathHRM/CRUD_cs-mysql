@@ -255,7 +255,7 @@ namespace CRUD_mysql
         {
             if (!inptNome.Text.Equals("") &&
                 !inptEmail.Text.Equals("") &&
-                !inptTelefone.Text.Equals("") &&
+                inptTelefone.MaskCompleted &&
                 !inptCidade.Text.Equals("") &&
                 !inptBairro.Text.Equals("") &&
                 !inptEstado.Text.Equals("") &&
