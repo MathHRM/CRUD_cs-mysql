@@ -45,13 +45,15 @@
             this.inptID = new System.Windows.Forms.TextBox();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnRemover = new System.Windows.Forms.Button();
-            this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridTable = new System.Windows.Forms.DataGridView();
             this.btnConfirmarExcluir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnConfirmarEdicao = new System.Windows.Forms.Button();
             this.btnPesquisar = new System.Windows.Forms.Button();
             this.btnConfirmarPesquisa = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
+            this.label8 = new System.Windows.Forms.Label();
+            this.inptCpf = new System.Windows.Forms.MaskedTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridTable)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdicionar
@@ -68,7 +70,7 @@
             // 
             this.inptName.Location = new System.Drawing.Point(80, 17);
             this.inptName.Name = "inptName";
-            this.inptName.Size = new System.Drawing.Size(510, 20);
+            this.inptName.Size = new System.Drawing.Size(543, 20);
             this.inptName.TabIndex = 1;
             // 
             // label1
@@ -95,14 +97,14 @@
             // 
             this.inptEmail.Location = new System.Drawing.Point(80, 43);
             this.inptEmail.Name = "inptEmail";
-            this.inptEmail.Size = new System.Drawing.Size(510, 20);
+            this.inptEmail.Size = new System.Drawing.Size(381, 20);
             this.inptEmail.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(434, 123);
+            this.label3.Location = new System.Drawing.Point(477, 125);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 18);
             this.label3.TabIndex = 8;
@@ -110,9 +112,9 @@
             // 
             // inptEstado
             // 
-            this.inptEstado.Location = new System.Drawing.Point(498, 121);
+            this.inptEstado.Location = new System.Drawing.Point(541, 123);
             this.inptEstado.Name = "inptEstado";
-            this.inptEstado.Size = new System.Drawing.Size(92, 20);
+            this.inptEstado.Size = new System.Drawing.Size(82, 20);
             this.inptEstado.TabIndex = 7;
             // 
             // label4
@@ -129,7 +131,7 @@
             // 
             this.inptBairro.Location = new System.Drawing.Point(80, 121);
             this.inptBairro.Name = "inptBairro";
-            this.inptBairro.Size = new System.Drawing.Size(335, 20);
+            this.inptBairro.Size = new System.Drawing.Size(381, 20);
             this.inptBairro.TabIndex = 5;
             // 
             // label5
@@ -146,7 +148,7 @@
             // 
             this.inptCidade.Location = new System.Drawing.Point(80, 95);
             this.inptCidade.Name = "inptCidade";
-            this.inptCidade.Size = new System.Drawing.Size(510, 20);
+            this.inptCidade.Size = new System.Drawing.Size(543, 20);
             this.inptCidade.TabIndex = 11;
             // 
             // label6
@@ -163,14 +165,14 @@
             // 
             this.inptTelefone.Location = new System.Drawing.Point(80, 69);
             this.inptTelefone.Name = "inptTelefone";
-            this.inptTelefone.Size = new System.Drawing.Size(377, 20);
+            this.inptTelefone.Size = new System.Drawing.Size(381, 20);
             this.inptTelefone.TabIndex = 9;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(469, 71);
+            this.label7.Location = new System.Drawing.Point(512, 73);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 18);
             this.label7.TabIndex = 14;
@@ -179,9 +181,9 @@
             // inptID
             // 
             this.inptID.BackColor = System.Drawing.SystemColors.Window;
-            this.inptID.Location = new System.Drawing.Point(498, 69);
+            this.inptID.Location = new System.Drawing.Point(541, 71);
             this.inptID.Name = "inptID";
-            this.inptID.Size = new System.Drawing.Size(92, 20);
+            this.inptID.Size = new System.Drawing.Size(82, 20);
             this.inptID.TabIndex = 13;
             // 
             // btnEditar
@@ -204,17 +206,20 @@
             this.btnRemover.UseVisualStyleBackColor = true;
             this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
             // 
-            // dataGrid
+            // dataGridTable
             // 
-            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Location = new System.Drawing.Point(12, 213);
-            this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(596, 225);
-            this.dataGrid.TabIndex = 18;
+            this.dataGridTable.AllowUserToAddRows = false;
+            this.dataGridTable.AllowUserToDeleteRows = false;
+            this.dataGridTable.Location = new System.Drawing.Point(12, 213);
+            this.dataGridTable.Name = "dataGridTable";
+            this.dataGridTable.ReadOnly = true;
+            this.dataGridTable.Size = new System.Drawing.Size(611, 225);
+            this.dataGridTable.TabIndex = 18;
+            this.dataGridTable.SelectionChanged += new System.EventHandler(this.dataGridTable_SelectionChanged);
             // 
             // btnConfirmarExcluir
             // 
-            this.btnConfirmarExcluir.Location = new System.Drawing.Point(515, 184);
+            this.btnConfirmarExcluir.Location = new System.Drawing.Point(548, 184);
             this.btnConfirmarExcluir.Name = "btnConfirmarExcluir";
             this.btnConfirmarExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnConfirmarExcluir.TabIndex = 19;
@@ -225,7 +230,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(353, 169);
+            this.btnCancelar.Location = new System.Drawing.Point(386, 169);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 20;
@@ -236,7 +241,7 @@
             // 
             // btnConfirmarEdicao
             // 
-            this.btnConfirmarEdicao.Location = new System.Drawing.Point(515, 155);
+            this.btnConfirmarEdicao.Location = new System.Drawing.Point(548, 155);
             this.btnConfirmarEdicao.Name = "btnConfirmarEdicao";
             this.btnConfirmarEdicao.Size = new System.Drawing.Size(75, 23);
             this.btnConfirmarEdicao.TabIndex = 21;
@@ -257,7 +262,7 @@
             // 
             // btnConfirmarPesquisa
             // 
-            this.btnConfirmarPesquisa.Location = new System.Drawing.Point(434, 169);
+            this.btnConfirmarPesquisa.Location = new System.Drawing.Point(467, 169);
             this.btnConfirmarPesquisa.Name = "btnConfirmarPesquisa";
             this.btnConfirmarPesquisa.Size = new System.Drawing.Size(75, 23);
             this.btnConfirmarPesquisa.TabIndex = 23;
@@ -266,17 +271,38 @@
             this.btnConfirmarPesquisa.Visible = false;
             this.btnConfirmarPesquisa.Click += new System.EventHandler(this.btnConfirmarPesquisa_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(494, 47);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 18);
+            this.label8.TabIndex = 24;
+            this.label8.Text = "CPF";
+            // 
+            // inptCpf
+            // 
+            this.inptCpf.Location = new System.Drawing.Point(541, 45);
+            this.inptCpf.Mask = "000.000.000-00";
+            this.inptCpf.Name = "inptCpf";
+            this.inptCpf.Size = new System.Drawing.Size(82, 20);
+            this.inptCpf.TabIndex = 25;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 450);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(636, 450);
+            this.Controls.Add(this.inptCpf);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.btnConfirmarPesquisa);
             this.Controls.Add(this.btnPesquisar);
             this.Controls.Add(this.btnConfirmarEdicao);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnConfirmarExcluir);
-            this.Controls.Add(this.dataGrid);
+            this.Controls.Add(this.dataGridTable);
             this.Controls.Add(this.btnRemover);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.label7);
@@ -295,9 +321,10 @@
             this.Controls.Add(this.inptName);
             this.Controls.Add(this.btnAdicionar);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,12 +349,14 @@
         private System.Windows.Forms.TextBox inptID;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnRemover;
-        private System.Windows.Forms.DataGridView dataGrid;
+        private System.Windows.Forms.DataGridView dataGridTable;
         private System.Windows.Forms.Button btnConfirmarExcluir;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnConfirmarEdicao;
         private System.Windows.Forms.Button btnPesquisar;
         private System.Windows.Forms.Button btnConfirmarPesquisa;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.MaskedTextBox inptCpf;
     }
 }
 

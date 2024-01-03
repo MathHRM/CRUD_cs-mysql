@@ -26,13 +26,15 @@ namespace CRUD_mysql
                 telefone = inptTelefone.Text,
                 cidade = inptCidade.Text,
                 bairro = inptBairro.Text,
-                estado = inptEstado.Text;
+                estado = inptEstado.Text,
+                cpf = inptCpf.Text; ;
 
             if (nome.Equals("") ||
                 email.Equals("") ||
                 telefone.Equals("") ||
                 bairro.Equals("") ||
                 estado.Equals("") ||
+                cpf.Equals("") ||
                 cidade.Equals(""))
             {
                 MessageBox.Show("Preencha todos os campos");
@@ -40,7 +42,7 @@ namespace CRUD_mysql
             }
 
             Cadastro adicionar = new Cadastro();
-            adicionar.Adicionar(nome, email, telefone, cidade, bairro, estado);
+            adicionar.Adicionar(nome, email, telefone, cidade, bairro, estado, cpf);
             Limpar();
             ShowAll();
         }
@@ -70,6 +72,8 @@ namespace CRUD_mysql
             inptBairro.BackColor = Color.White;
             inptEstado.ReadOnly = false;
             inptEstado.BackColor = Color.White;
+            inptCpf.ReadOnly = false;
+            inptCpf.BackColor = Color.White;
         }
         private void desactivateInputs()
         {
@@ -88,6 +92,8 @@ namespace CRUD_mysql
             inptBairro.BackColor = Color.LightGray;
             inptEstado.ReadOnly = true;
             inptEstado.BackColor = Color.LightGray;
+            inptCpf.ReadOnly = true;
+            inptCpf.BackColor = Color.LightGray;
         }
 
 
@@ -116,6 +122,7 @@ namespace CRUD_mysql
             inptBairro.Clear();
             inptEstado.Clear();
             inptID.Clear();
+            inptCpf.Clear();
         }
 
         private void btnRemover_Click(object sender, EventArgs e)
@@ -123,7 +130,7 @@ namespace CRUD_mysql
             desactivateButtons();
             desactivateInputs();
             btnCancelar.Visible = true;
-            btnConfirmarExcluir.Visible = true;
+            btnConfirmarPesquisa.Visible = true;
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -192,7 +199,9 @@ namespace CRUD_mysql
                 telefone = inptTelefone.Text,
                 cidade = inptCidade.Text,
                 bairro = inptBairro.Text,
-                estado = inptEstado.Text;
+                estado = inptEstado.Text,
+                cpf = inptCpf.Text;
+                
 
             int id = int.Parse(inptID.Text);
 
@@ -201,14 +210,15 @@ namespace CRUD_mysql
                 telefone.Equals("") ||
                 bairro.Equals("") ||
                 estado.Equals("") ||
-                cidade.Equals(""))
+                cidade.Equals("") ||
+                cpf.Equals(""))
             {
                 MessageBox.Show("Preencha todos os campos");
                 return;
             }
 
             Cadastro update = new Cadastro();
-            update.Update(nome, email, telefone, cidade, bairro, estado, id);
+            update.Update(nome, email, telefone, cidade, bairro, estado, cpf, id);
             activateButtons();
             btnConfirmarEdicao.Visible = false;
             btnCancelar.Visible = false;
@@ -218,19 +228,24 @@ namespace CRUD_mysql
 
         private void btnConfirmarPesquisa_Click(object sender, EventArgs e)
         {
+            pesquisar();
+        }
+        
+        private void pesquisar()
+        {
             int id = int.Parse(inptID.Text);
             Cadastro pesquisar = new Cadastro();
             var funcionario = pesquisar.Pesquisar(id);
 
             if (funcionario == null)
             {
-                MessageBox.Show("Funcionario não encontrado null");
+                MessageBox.Show("Funcionario não encontrado: não existe");
                 return;
             }
 
             if (!funcionario.HasRows)
             {
-                MessageBox.Show("Funcionario não encontrado sem dados");
+                MessageBox.Show("Funcionario não encontrado: sem dados");
                 return;
             }
 
@@ -243,6 +258,8 @@ namespace CRUD_mysql
             inptBairro.Text = funcionario["bairro"].ToString();
             inptEstado.Text = funcionario["estado"].ToString();
 
+            desactivateInputs();
+            desactivateButtons();
             btnCancelar.Visible = true;
             btnEditar.Visible = true;
             btnConfirmarExcluir.Visible = true;
@@ -259,7 +276,26 @@ namespace CRUD_mysql
             DataTable dt = new DataTable();
             dt.Load(tabela);
 
-            dataGrid.DataSource = dt;
+            dataGridTable.DataSource = dt;
+            dataGridTable.AutoResizeColumns();
+        }
+
+        private void dataGridTable_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            int contLinhas = dgv.Rows.Count;
+            string idSelecionado;
+
+            if (contLinhas > 0)
+            {
+                bool rowSelecionado = dataGridTable.SelectedRows.Count > 0;
+                if (rowSelecionado)
+                {
+                    idSelecionado = dataGridTable.Rows[dataGridTable.SelectedRows[0].Index].Cells[0].Value.ToString();
+                    inptID.Text = idSelecionado;
+                    pesquisar();
+                }
+            }
         }
     }
 }
