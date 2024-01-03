@@ -42,12 +42,14 @@ namespace CRUD_mysql
             Cadastro adicionar = new Cadastro();
             adicionar.Adicionar(nome, email, telefone, cidade, bairro, estado);
             Limpar();
+            ShowAll();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             var cadastro = new Cadastro();
             cadastro.TestaConexao();
+            ShowAll();
             activateInputs();
         }
 
@@ -143,6 +145,7 @@ namespace CRUD_mysql
             activateInputs();
             btnConfirmarExcluir.Visible = false;
             btnCancelar.Visible = false;
+            ShowAll();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -210,6 +213,7 @@ namespace CRUD_mysql
             btnConfirmarEdicao.Visible = false;
             btnCancelar.Visible = false;
             Limpar();
+            ShowAll();
         }
 
         private void btnConfirmarPesquisa_Click(object sender, EventArgs e)
@@ -245,6 +249,17 @@ namespace CRUD_mysql
             inptID.ReadOnly = true;
             inptID.BackColor = Color.LightGray;
             btnConfirmarPesquisa.Visible = false;
+        }
+
+        private void ShowAll()
+        {
+            Cadastro pesquisar = new Cadastro();
+            var tabela = pesquisar.ReadAll();
+
+            DataTable dt = new DataTable();
+            dt.Load(tabela);
+
+            dataGrid.DataSource = dt;
         }
     }
 }
