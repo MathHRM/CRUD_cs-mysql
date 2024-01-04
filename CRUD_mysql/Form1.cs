@@ -195,6 +195,7 @@ namespace CRUD_mysql
 
             btnCancelar.Visible = true;
             btnEditar.Visible = true;
+            btnConfirmarEdicao.Visible = false;
             btnConfirmarExcluir.Visible = true;
             btnConfirmarPesquisa.Visible = false;
 
