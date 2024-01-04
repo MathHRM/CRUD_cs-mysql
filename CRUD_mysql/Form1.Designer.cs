@@ -281,12 +281,33 @@
             this.inptEstado.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.inptEstado.FormattingEnabled = true;
             this.inptEstado.Items.AddRange(new object[] {
-            "MG",
-            "SP",
+            "AC",
             "AL",
+            "AP",
+            "AM",
+            "BA",
+            "CE",
+            "DF",
+            "ES",
+            "GO",
+            "MA",
             "MT",
+            "MS",
+            "MG",
+            "PA",
+            "PB",
+            "PR",
+            "PE",
+            "PI",
+            "RJ",
+            "RN",
+            "RS",
+            "RO",
+            "RR",
             "SC",
-            "RJ"});
+            "SP",
+            "SE",
+            "TO"});
             this.inptEstado.Location = new System.Drawing.Point(558, 95);
             this.inptEstado.Name = "inptEstado";
             this.inptEstado.Size = new System.Drawing.Size(65, 21);
