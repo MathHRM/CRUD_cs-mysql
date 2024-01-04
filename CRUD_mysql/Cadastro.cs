@@ -86,7 +86,7 @@ namespace CRUD_mysql
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro aoremover do BD" + ex.Message);
+                Console.WriteLine("Erro ao remover do BD" + ex.Message);
             }
         }
 

@@ -164,6 +164,12 @@ namespace CRUD_mysql
 
         private void pesquisar()
         {
+            if (inptID.Text.Equals(""))
+            {
+                MessageBox.Show("Digite um ID");
+                return;
+            }
+
             int id = int.Parse(inptID.Text);
             Cadastro pesquisar = new Cadastro();
             var funcionario = pesquisar.Pesquisar(id);
